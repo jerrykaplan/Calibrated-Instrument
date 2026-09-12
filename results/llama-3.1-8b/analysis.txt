@@ -1,0 +1,74 @@
+1820 judgements: 1400 primary, 280 duplicate, 140 second-opinion; items file items.json
+
+========================================================================================
+JUDGE RELIABILITY
+========================================================================================
+  same item twice (n=280): mean |diff| 0.175, exact 84%, s.d. of difference 0.483 -> judge-only s.d. per rating 0.341
+  primary vs second model (n=140): mean |diff| 0.31, means 5.29 / 5.06
+
+220 prompts with both baseline arms; domains ['arith', 'code', 'hard', 'prose', 'zh']
+
+reference mean 5.46; ceiling (rated 7) 42%; by domain: arith 95%, code 58%, hard 15%, prose 32%, zh 0%
+
+========================================================================================
+EXCHANGEABILITY TEST: resample minus reference (true mean is 0 by symmetry)
+========================================================================================
+         arm    n   delta     sd          95% CI  sig   TOST±0.3
+    resample  220   +0.09   1.17 [ -0.06, +0.25]   no      EQUIV
+       arith   40   +0.12   1.04 [ -0.21, +0.46]   no  not shown
+        code   60   +0.18   1.20 [ -0.13, +0.49]   no  not shown
+        hard   40   -0.07   1.46 [ -0.54, +0.39]   no  not shown
+       prose   40   +0.33   1.02 [ -0.00, +0.65]   no  not shown
+          zh   40   -0.15   1.05 [ -0.49, +0.19]   no  not shown
+
+========================================================================================
+MEASURED ARMS vs DUAL-REFERENCE BASELINE
+========================================================================================
+         arm    n   delta     sd          95% CI  sig   TOST±0.3
+      lam0.2  220   -0.10   0.98 [ -0.23, +0.03]   no      EQUIV
+      lam1.0  220   -0.14   0.97 [ -0.27, -0.01]  YES      EQUIV
+     raw3bit  220   -1.84   1.81 [ -2.08, -1.60]  YES  not shown
+     raw4bit  220   -0.10   1.08 [ -0.24, +0.04]   no      EQUIV
+ speccontrol   80   +0.05   1.05 [ -0.18, +0.28]   no      EQUIV
+
+BY DOMAIN (delta, 95% CI):
+         arm                 arith                  code                  hard                 prose                    zh
+      lam0.2  +0.09 [-0.11,+0.28]  -0.07 [-0.38,+0.23]  -0.44 [-0.81,-0.07]  +0.11 [-0.12,+0.34]  -0.20 [-0.49,+0.09]
+      lam1.0  +0.04 [-0.16,+0.23]  -0.09 [-0.38,+0.20]  -0.46 [-0.81,-0.11]  -0.01 [-0.31,+0.28]  -0.20 [-0.49,+0.09]
+     raw3bit  -0.09 [-0.39,+0.22]  -3.11 [-3.57,-2.64]  -1.86 [-2.44,-1.28]  -1.49 [-1.89,-1.09]  -2.02 [-2.47,-1.58]
+     raw4bit  -0.04 [-0.29,+0.22]  -0.17 [-0.49,+0.14]  -0.01 [-0.46,+0.44]  -0.11 [-0.34,+0.12]  -0.12 [-0.47,+0.22]
+ speccontrol                    --                    --  -0.16 [-0.56,+0.24]  +0.26 [+0.01,+0.51]                    --
+
+========================================================================================
+VARIANCE STRUCTURE
+========================================================================================
+  judge-only variance per rating      0.116
+  residual variance per paired delta  1.414
+  prompt-effect variance (shared)     0.347  ICC 0.20
+  paired-delta s.d. by domain: arith 0.75, code 1.87, hard 1.51, prose 1.09, zh 1.35
+
+========================================================================================
+JUDGED DELTA vs MECHANICAL EAR (speculative arms)
+========================================================================================
+    lam0.2: n=220 mean EAR 0.955, Spearman(EAR, delta) = -0.01 (p=0.94)
+    lam1.0: n=220 mean EAR 0.956, Spearman(EAR, delta) = +0.06 (p=0.38)
+
+========================================================================================
+JUDGED RATING vs CORRECTNESS (arith, hard)
+========================================================================================
+     correct   hard: rating when True 5.84 (n=62), when False 2.04 (n=178)
+  agrees_ref  arith: rating when True 6.90 (n=233), when False 5.71 (n=7)
+  agrees_ref   hard: rating when True 2.99 (n=214), when False 3.35 (n=26)
+  wrong-by-checker but judged >= 6: 0
+
+========================================================================================
+PREDICTION SCORECARD (registered before the run)
+========================================================================================
+         arm  predicted  measured           95% CI  verdict  note
+    resample      +0.00     +0.09 [ -0.06, +0.25]   inside  null by exchangeability (vs reference)
+      lam1.0      +0.00     -0.14 [ -0.27, -0.01]  OUTSIDE  null by proof; |delta| < 0.05
+      lam0.2      -0.05     -0.10 [ -0.23, +0.03]   inside  [-0.2, +0.1]
+     raw4bit      -0.10     -0.10 [ -0.24, +0.04]   inside  pooled; zh -0.45; arith 0.00
+     raw3bit      -0.80     -1.84 [ -2.08, -1.60]  OUTSIDE  [-1.5, -0.4]
+
+wrote ce_results.json
