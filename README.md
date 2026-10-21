@@ -53,7 +53,19 @@ claude-sonnet-5, judged 2026-09-05/07; second families claude-opus-5 and gemini-
 ## Citation
 
 Kaplan, J. (2026). A calibrated instrument for measuring how inference optimizations affect
-output quality. Manuscript.
+output quality. arXiv:2609.18005. https://arxiv.org/abs/2609.18005
+
+```bibtex
+@misc{kaplan2026calibrated,
+  title         = {A Calibrated Instrument for Measuring How Inference Optimizations Affect Output Quality},
+  author        = {Kaplan, Jerry},
+  year          = {2026},
+  eprint        = {2609.18005},
+  archivePrefix = {arXiv},
+  doi           = {10.48550/arXiv.2609.18005},
+  url           = {https://arxiv.org/abs/2609.18005}
+}
+```
 
 ## License
 
